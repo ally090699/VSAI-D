@@ -2,7 +2,15 @@
 #include "mainwindow.h"
 
 previewwindow::previewwindow(QWidget *parent) : QMainWindow{parent}{
-    previewwindow::setWindowTitle("Visual Study AI-D");
+    setupUI();
+}
+
+previewwindow::previewwindow(QString username, QWidget *parent) : QMainWindow{parent}{
+    this->setProperty("username",username);
+}
+
+void previewwindow::setupUI(){
+    previewwindow::setWindowTitle("Preview Pane");
 
     QWidget* centralWidget = new QWidget(this);
     setCentralWidget(centralWidget);  // Set the central widget for the main window
@@ -35,13 +43,13 @@ previewwindow::previewwindow(QWidget *parent) : QMainWindow{parent}{
     QFont maintitleFont("Helvetica", 30, QFont::Bold);
     mainTitle->setFont(maintitleFont);
 
-    QFont mainsubtitleFont("Helvetica", 20, QFont::Weight(300));
+    QFont mainsubtitleFont("Helvetica", 20, QFont::Medium);
     mainSubtitle->setFont(mainsubtitleFont);
 
-    QFont restartFont("Helvetica", 16, QFont::Weight(300));
+    QFont restartFont("Helvetica", 16, QFont::Light);
     restartButton->setFont(restartFont);
 
-    QFont continueFont("Helvetica", 16, QFont::Weight(300));
+    QFont continueFont("Helvetica", 16, QFont::Light);
     continueButton->setFont(continueFont);
 
     QFont previewerrorFont("Helvetica", 14, QFont::StyleItalic);
@@ -49,7 +57,6 @@ previewwindow::previewwindow(QWidget *parent) : QMainWindow{parent}{
 
     connect(restartButton, &QPushButton::released, this, &previewwindow::handleRestartButton);
     connect(continueButton, &QPushButton::released, this, &previewwindow::handleContinueButton);
-
 }
 
 void previewwindow::handleRestartButton()
@@ -61,7 +68,7 @@ void previewwindow::handleRestartButton()
 
 void previewwindow::handleContinueButton()
 {
-    profileWindow = new profilewindow();
-    profileWindow->showMaximized();
+    videoWindow = new VideoWindow(this->property("username").toString(), this);
+    videoWindow->showMaximized();
     this->close();
 }

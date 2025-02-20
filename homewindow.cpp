@@ -33,10 +33,10 @@ homewindow::homewindow(QWidget *parent) : QMainWindow{parent}{
     //QFont mainsubtitleFont("Helvetica", 20, QFont::Weight(300));
     //mainSubtitle->setFont(mainsubtitleFont);
 
-    QFont signinFont("Helvetica", 16, QFont::Bold);
+    QFont signinFont("Helvetica", 16, QFont::Light);
     signin_button->setFont(signinFont);
 
-    QFont getstartedFont("Helvetica", 16, QFont::Bold);
+    QFont getstartedFont("Helvetica", 16, QFont::Light);
     getstarted_button->setFont(getstartedFont);
 
     connect(signin_button, &QPushButton::released, this, &homewindow::handleSignInButton);

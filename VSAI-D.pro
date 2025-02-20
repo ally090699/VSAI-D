@@ -5,15 +5,21 @@ TEMPLATE = app
 
 SOURCES += main.cpp mainwindow.cpp \
     camerawindow.mm \
+    databasemanager.cpp \
     homewindow.cpp \
     loginwindow.cpp \
     previewwindow.cpp \
-    profilewindow.cpp
+    profilewindow.cpp \
+    user.cpp \
+    videowindow.cpp
 HEADERS += mainwindow.h camerawindow.h \
+    databasemanager.h \
     homewindow.h \
     loginwindow.h \
     previewwindow.h \
-    profilewindow.h
+    profilewindow.h \
+    user.h \
+    videowindow.h
 
 RESOURCES += resources.qrc
 

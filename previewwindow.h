@@ -14,6 +14,7 @@
 #include <QDebug>
 
 #include "profilewindow.h"
+#include "videowindow.h"
 class MainWindow;
 
 class previewwindow : public QMainWindow
@@ -21,9 +22,11 @@ class previewwindow : public QMainWindow
     Q_OBJECT
 public:
     explicit previewwindow(QWidget *parent = nullptr);
+    previewwindow(QString username, QWidget *parent = nullptr);
 private slots:
     void handleRestartButton();
     void handleContinueButton();
+    void setupUI();
 private:
     QVBoxLayout *layout;
     QLabel *mainTitle;
@@ -33,5 +36,6 @@ private:
     QLabel *preview_error;
     MainWindow *mainWindow;
     profilewindow *profileWindow;
+    VideoWindow *videoWindow;
 };
 #endif // MAINWINDOW_H

@@ -3,7 +3,6 @@
 
 CameraWindow::CameraWindow(QWidget *parent) : QMainWindow(parent) {
     setWindowTitle("Camera Capture");
-    setGeometry(100, 100, 1500, 1000);
 
     QWidget *centralWidget = new QWidget(this);
     QVBoxLayout *layout = new QVBoxLayout(centralWidget);

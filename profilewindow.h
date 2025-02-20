@@ -20,10 +20,12 @@ class profilewindow : public QMainWindow
 {
     Q_OBJECT
 public:
-    explicit profilewindow(QWidget *parent = nullptr);
+    explicit profilewindow(QString *username, QWidget *parent = nullptr);
 private slots:
     void handleFavouriteButton();
+    void setupUI();
 private:
+    QString *userName;
     QVBoxLayout *layout;
     QLabel *mainTitle;
     QLabel *mainSubtitle;

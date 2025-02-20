@@ -2,7 +2,7 @@
 #include "mainwindow.h"
 
 loginwindow::loginwindow(QWidget *parent) : QMainWindow{parent}{
-    loginwindow::setWindowTitle("Visual Study AI-D");
+    loginwindow::setWindowTitle("Login/Register");
     connectDatabase();
 
     //main window layout
@@ -44,13 +44,13 @@ loginwindow::loginwindow(QWidget *parent) : QMainWindow{parent}{
     QFont maintitleFont("Helvetica", 50, QFont::Bold);
     mainTitle->setFont(maintitleFont);
 
-    QFont mainsubtitleFont("Helvetica", 20, QFont::Weight(300));
+    QFont mainsubtitleFont("Helvetica", 20, QFont::Medium);
     mainSubtitle->setFont(mainsubtitleFont);
 
-    QFont registerbuttonFont("Helvetica", 16, QFont::Weight(300));
+    QFont registerbuttonFont("Helvetica", 16, QFont::Light);
     register_button->setFont(registerbuttonFont);
 
-    QFont loginbuttonFont("Helvetica", 16, QFont::Weight(300));
+    QFont loginbuttonFont("Helvetica", 16, QFont::Light);
     login_button->setFont(loginbuttonFont);
 
     QFont loginerrorFont("Helvetica", 14, QFont::StyleItalic);
@@ -81,7 +81,7 @@ void loginwindow::handleLoginButton()
 
     if ((username=="admin" && password=="test123") || authenticateUser(username, password)){
         qDebug() <<"Logged in successfully!";
-        mainWindow = new MainWindow();
+        mainWindow = new MainWindow(username, password);
         mainWindow->showMaximized();
         this->close();
     }

@@ -1,12 +1,17 @@
 #include "profilewindow.h"
 
-profilewindow::profilewindow(QWidget *parent) : QMainWindow{parent}{
-    profilewindow::setWindowTitle("Visual Study AI-D");
+profilewindow::profilewindow(QString *username, QWidget *parent) : QMainWindow{parent}{
+    userName = username;
+    setupUI();
+}
+
+void profilewindow::setupUI(){
+    profilewindow::setWindowTitle("Profile");
 
     QWidget* centralWidget = new QWidget(this);
     setCentralWidget(centralWidget);  // Set the central widget for the main window
-
-    mainTitle = new QLabel("Profile", this);
+    QString title = userName->append("'s Profile");
+    mainTitle = new QLabel(title, this);
     //add vbox with list of previously uploaded content
     favouriteButton = new QPushButton("♥️", this);
     favouriteButton->setFixedSize(300, 50);
