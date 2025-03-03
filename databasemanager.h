@@ -7,6 +7,7 @@
 #include <QString>
 #include <QList>
 #include <tuple>
+
 #include "user.h"
 
 class DatabaseManager
@@ -16,7 +17,8 @@ public:
     bool connectToDB();
     bool createTables();
     bool addUser(const QString& username, const QString& password, const QString& firstname, const QString& lastname, const QString& email);
-    user getUser(const QString& username);
+    user getUser(const int userid);
+    int getUserId(const QString& username);
     bool addFavourite(const QString& uploadPath, const QString& outputPath, const QString& username);
     QList<std::tuple<QString, QString, int>> getFavourites(const int userID);
 private:

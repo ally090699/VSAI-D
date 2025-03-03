@@ -4,7 +4,8 @@ TARGET = VSAID
 TEMPLATE = app
 
 SOURCES += main.cpp mainwindow.cpp \
-    camerawindow.mm \
+    camerawindow.cpp \
+    computervision.cpp \
     databasemanager.cpp \
     homewindow.cpp \
     loginwindow.cpp \
@@ -12,7 +13,9 @@ SOURCES += main.cpp mainwindow.cpp \
     profilewindow.cpp \
     user.cpp \
     videowindow.cpp
-HEADERS += mainwindow.h camerawindow.h \
+HEADERS += mainwindow.h \
+    camerawindow.h \
+    computervision.h \
     databasemanager.h \
     homewindow.h \
     loginwindow.h \
@@ -23,16 +26,11 @@ HEADERS += mainwindow.h camerawindow.h \
 
 RESOURCES += resources.qrc
 
-macx:QMAKE_INFO_PLIST = $$PWD/Info.plist
-macx:LIBS += -framework AVFoundation
-QMAKE_MACOSX_DEPLOYMENT_TARGET = 12.0
-QMAKE_ENTITLEMENTS = $$PWD/Entitlements.plist
+INCLUDEPATH += /usr/local/Cellar/opencv/4.11.0_1/include/opencv4
+INCLUDEPATH += /usr/local/Cellar/tesseract/5.5.0/include
+LIBS += -L/usr/local/Cellar/opencv/4.11.0_1/lib -lopencv_core -lopencv_imgproc -lopencv_videoio -lopencv_highgui -lopencv_imgcodecs
+LIBS += -L/usr/local/Cellar/tesseract/5.5.0/lib -ltesseract
 
-macx {
-    QMAKE_POST_LINK += cp $$PWD/Info.plist $$OUT_PWD/VSAID.app/Contents/Info.plist;
-    QMAKE_POST_LINK += codesign --deep --force --verbose --entitlements $$PWD/Entitlements.plist --sign "Developer ID Application: ally090699@hotmail.com (4NFL89X5LY)" $$OUT_PWD/VSAID.app;
-}
-
-
-
-
+INCLUDEPATH += /usr/local/Cellar/ffmpeg/7.1_4/include
+LIBS += -L/usr/local/Cellar/ffmpeg/7.1_4/lib \
+        -lavformat -lavcodec -lavutil -lswscale

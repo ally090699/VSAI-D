@@ -21,12 +21,18 @@ loginwindow::loginwindow(QWidget *parent) : QMainWindow{parent}{
 
     register_button = new QPushButton("REGISTER", this);
     register_button->setFixedSize(300, 50);
+
     login_button = new QPushButton("LOGIN", this);
     login_button->setFixedSize(300, 50);
+
+    return_button = new QPushButton("←", this);
+    return_button->setFixedSize(50, 50);
+
     login_error = new QLabel("", this);
 
     QVBoxLayout* layout = new QVBoxLayout();
 
+    layout->addWidget(return_button, 0, Qt::AlignLeft);
     layout->addItem(new QSpacerItem(20, 150, QSizePolicy::Minimum, QSizePolicy::Fixed));
     layout->addWidget(mainTitle, 0, Qt::AlignHCenter);
     layout->addWidget(mainSubtitle, 0, Qt::AlignHCenter);
@@ -56,14 +62,16 @@ loginwindow::loginwindow(QWidget *parent) : QMainWindow{parent}{
     QFont loginerrorFont("Helvetica", 14, QFont::StyleItalic);
     login_error->setFont(loginerrorFont);
 
+    QFont returnbuttonFont("Helvetica", 16, QFont::Medium);
+    return_button->setFont(returnbuttonFont);
+
     connect(register_button, &QPushButton::released, this, &loginwindow::handleRegisterButton);
     connect(login_button, &QPushButton::released, this, &loginwindow::handleLoginButton);
-
+    connect(return_button, &QPushButton::released, this, &loginwindow::handleReturn);
 }
 
 void loginwindow::handleRegisterButton()
 {
-    //input into database
     QString username = usernameInput->text();
     QString password = passwordInput->text();
 
@@ -82,8 +90,9 @@ void loginwindow::handleLoginButton()
     if ((username=="admin" && password=="test123") || authenticateUser(username, password)){
         qDebug() <<"Logged in successfully!";
         mainWindow = new MainWindow(username, password);
+        mainWindow->previousWindow = this;
         mainWindow->showMaximized();
-        this->close();
+        this->hide();
     }
     else {
         qDebug() <<"Incorrect login.";
@@ -94,6 +103,9 @@ void loginwindow::handleLoginButton()
 void loginwindow::connectDatabase(){
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName("database.db");
+    db.setHostName("localhost:3000");
+    db.setUserName("allxn");
+    db.setPassword("EA_dolls090699");
 
     if (!db.open()) {
         qDebug() << "Error: Could not open database!";
@@ -127,6 +139,7 @@ bool loginwindow::insertUser(const QString& username, const QString& password){
     // Insert if username is unique
     query.prepare("INSERT INTO user (username, password) VALUES (:username, :password)");
     query.bindValue(":username", username);
+
     QString hashedPassword = QString(QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha256).toHex());
     query.bindValue(":password", hashedPassword);
 
@@ -153,4 +166,11 @@ bool loginwindow::authenticateUser(const QString& username, const QString& passw
     }
     qDebug() << "Invalid username or password.";
     return false;
+}
+
+void loginwindow::handleReturn(){
+    if (previousWindow) {
+        previousWindow->show();
+        this->hide();
+    }
 }

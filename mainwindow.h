@@ -12,40 +12,41 @@
 #include <QString>
 #include <QMessageBox>
 #include <QDebug>
+#include <QTimer>
+#include <QHBoxLayout>
 
-#include "camerawindow.h"
 #include "profilewindow.h"
 #include "previewwindow.h"
-#include "loginwindow.h"
-
-class previewwindow;
+#include "camerawindow.h"
 
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 public:
     explicit MainWindow(QWidget *parent = nullptr);
+    MainWindow(QString username, QWidget *parent = nullptr);
     MainWindow(QString username, QString password, QWidget *parent = nullptr);
+    QWidget* previousWindow;
 private slots:
     void handleUploadButton();
     void handleCameraButton();
     void handleProfileButton();
-    void handleSignInButton();
     void setupUI();
+    void handleReturn();
 
 private:
-    QVBoxLayout *layout;
+    QVBoxLayout *vlayout;
     QLabel *mainTitle;
     QLabel *mainSubtitle;
-    QPushButton *upload_button;
-    QLabel *upload_error;
-    QPushButton *camera_button;
-    CameraWindow *cameraWindow;
+    QPushButton *button_one;
+    QPushButton *button_two;
+    QPushButton *button_three;
+    QPushButton *return_button;
+    QLabel *errorLabel;
     previewwindow *previewWindow;
     MainWindow *mainWindow;
     profilewindow *profileWindow;
-    QPushButton *profile_button;
-    QPushButton *signin_button;
-    loginwindow *loginWindow;
+    CameraWindow *cameraWindow;
+    QString username;
 };
 #endif // MAINWINDOW_H

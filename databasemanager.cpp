@@ -64,13 +64,25 @@ bool DatabaseManager::addUser(const QString& username, const QString& password, 
     return query.exec();
 }
 
-user DatabaseManager::getUser(const QString& userID) {
+int DatabaseManager::getUserId(const QString& username) {
+    QSqlQuery query;
+    query.prepare("SELECT userid FROM users WHERE username = :username");
+    query.bindValue(":username", username);
+
+    if (query.exec() && query.next()) {
+        return query.value(0).toInt();
+    }
+
+    return -1;
+}
+
+user DatabaseManager::getUser(const int userID) {
     QSqlQuery query;
     query.prepare("SELECT * FROM users WHERE userid = :userid");
     query.bindValue(":userid", userID);
 
     if (query.exec() && query.next()) {
-        return user(userID, query.value(1).toString(), query.value(2).toString(), query.value(3).toString(), query.value(4).toString());
+        return user(query.value(0).toString(), query.value(1).toString(), query.value(2).toString(), query.value(3).toString(), query.value(4).toString());
     }
 
     return user("", "", "", "", "");

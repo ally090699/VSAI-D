@@ -22,17 +22,20 @@ class previewwindow : public QMainWindow
     Q_OBJECT
 public:
     explicit previewwindow(QWidget *parent = nullptr);
-    previewwindow(QString username, QWidget *parent = nullptr);
+    previewwindow(QString username, QString filepath, QWidget *parent = nullptr);
+    QWidget* previousWindow;
 private slots:
     void handleRestartButton();
     void handleContinueButton();
     void setupUI();
+    void handleReturn();
 private:
     QVBoxLayout *layout;
     QLabel *mainTitle;
     QLabel *mainSubtitle;
     QPushButton *restartButton;
     QPushButton *continueButton;
+    QPushButton *return_button;
     QLabel *preview_error;
     MainWindow *mainWindow;
     profilewindow *profileWindow;

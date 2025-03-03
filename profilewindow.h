@@ -15,15 +15,18 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QLineEdit>
 
 class profilewindow : public QMainWindow
 {
     Q_OBJECT
 public:
     explicit profilewindow(QString *username, QWidget *parent = nullptr);
+    QWidget* previousWindow;
 private slots:
     void handleFavouriteButton();
     void setupUI();
+    void handleReturn();
 private:
     QString *userName;
     QVBoxLayout *layout;
@@ -31,5 +34,8 @@ private:
     QLabel *mainSubtitle;
     QVBoxLayout *pastUploads;
     QPushButton *favouriteButton;
+    QPushButton *return_button;
+    QLineEdit *usernameInput;
+
 };
 #endif // PROFILEWINDOW_H

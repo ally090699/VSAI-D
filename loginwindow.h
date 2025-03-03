@@ -26,12 +26,14 @@ class loginwindow : public QMainWindow
     Q_OBJECT
 public:
     explicit loginwindow(QWidget *parent = nullptr);
+    QWidget* previousWindow;
 private slots:
     void handleRegisterButton();
     void handleLoginButton();
     void connectDatabase();
     bool insertUser(const QString& username, const QString& password);
     bool authenticateUser(const QString& username, const QString& password);
+    void handleReturn();
 private:
     QVBoxLayout *layout;
     QLabel *mainTitle;
@@ -40,9 +42,11 @@ private:
     QLineEdit *passwordInput;
     QPushButton *register_button;
     QPushButton *login_button;
+    QPushButton *return_button;
     QLabel *login_error;
     MainWindow *mainWindow;
     QCryptographicHash *hashedPassword;
+    QSqlDatabase db;
 };
 
 #endif // LOGINWINDOW_H

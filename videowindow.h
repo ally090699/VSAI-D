@@ -14,13 +14,16 @@ class VideoWindow : public QMainWindow
 public:
     explicit VideoWindow(QWidget *parent = nullptr);
     VideoWindow(QString username, QWidget *parent = nullptr);
+    QWidget* previousWindow;
 private slots:
     void setupUI();
     void handleProfileButton();
+    void handleReturn();
 private:
     QVBoxLayout *layout;
     QVideoWidget *videoWidget;
     QPushButton *profile_button;
+    QPushButton *return_button;
     profilewindow *profileWindow;
     QPushButton *uploadagain_button;
 signals:

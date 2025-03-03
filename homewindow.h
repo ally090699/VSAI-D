@@ -19,7 +19,7 @@ class homewindow : public QMainWindow
     Q_OBJECT
 public:
     explicit homewindow(QWidget *parent = nullptr);
-
+    QWidget* previousWindow;
 private slots:
     void handleSignInButton();
     void handleGetStartedButton();

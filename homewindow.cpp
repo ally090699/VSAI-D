@@ -47,13 +47,15 @@ homewindow::homewindow(QWidget *parent) : QMainWindow{parent}{
 void homewindow::handleSignInButton()
 {
     loginWindow = new loginwindow();
+    loginWindow->previousWindow = this;
     loginWindow->showMaximized();
-    this->close();
+    this->hide();
 }
 
 void homewindow::handleGetStartedButton()
 {
     mainWindow = new MainWindow();
+    mainWindow->previousWindow = this;
     mainWindow->showMaximized();
-    this->close();
+    this->hide();
 }
